@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paulmcbride
+  namespace: paulmcbride
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paulmcbride
+
+  template:
+    metadata:
+      labels:
+        app: paulmcbride
+
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
+
+      containers:
+        - name: paulmcbride
+          image: ghcr.io/thepaulmcbride/paulmcbride.com:latest
+
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+
+      restartPolicy: Always
